@@ -47,8 +47,8 @@ export default function CRUDPage2() {
      
   return (
     <Stack   sx={{width: 400}} >
-            <ModelTypeAddInput modelTypeData={modelTypeDataList}  setModelTypeDataListVr={setModelTypeDataList}  />    
-            <ModelTypeTable modelTypeData={modelTypeDataList} setModelTypeDataListVr={setModelTypeDataList} />
+            {/* <ModelTypeAddInput modelTypeData={modelTypeDataList}  setModelTypeDataListVr={setModelTypeDataList}  />    
+            <ModelTypeTable modelTypeData={modelTypeDataList} setModelTypeDataListVr={setModelTypeDataList} /> */}
         
    </Stack>
   );

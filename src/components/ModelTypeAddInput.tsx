@@ -11,6 +11,7 @@ function ModelTypeAddInput({modelTypeData,setModelTypeDataListVr}:ModelTypeDataP
     const [modelTypeName, setmodelTypeName] = React.useState(initialState);
     const [isError, setIsError] = React.useState(false);
     const nameRef = React.useRef<HTMLInputElement>(null);
+   
    // const [modelTypeDatas, setModelTypeDatas] = React.useState<ModelTypeDataProps[]>([]);
 
     const  handlerAddModelType= (event: React.MouseEvent<HTMLButtonElement, MouseEvent>,btnType :string): void => {
@@ -26,6 +27,7 @@ const handleTextChange=(event: React.ChangeEvent<HTMLInputElement>):void => {
 }
 
     function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
+  
         event.preventDefault();
         if (!modelTypeName) {
           setIsError(true);
@@ -39,8 +41,8 @@ const handleTextChange=(event: React.ChangeEvent<HTMLInputElement>):void => {
           // corect setModelTypeDataList((prevState) =>             [...prevState, {name:modelTypeName,calories:100} ]  );       //setModelTypeDataList((prevState) => [...prevState, {name:modelTypeName,calories:100} ]  );       //setModelTypeDataList((prevState) => [...prevState, {name:modelTypeName,calories:100} ]  );       //setModelTypeDataList((prevState) => [...prevState, {name:modelTypeName,calories:100} ]  );       //setModelTypeDataList((prevState) => [...prevState, {name:modelTypeName,calories:100} ]  );       //setModelTypeDataList((prevState) => [...prevState, {name:modelTypeName,calories:100} ]  );       //setModelTypeDataList((prevState) => [...prevState, {name:modelTypeName,calories:100} ]  );       //setModelTypeDataList((prevState) => [...prevState, {name:modelTypeName,calories:100} ]  );       //setModelTypeDataList((prevState) => [...prevState, {name:modelTypeName,calories:100} ]  );       //setModelTypeDataList((prevState) => [...prevState, {name:modelTypeName,calories:100} ]  );
           setModelTypeDataListVr(prevState =>  {  return   [...prevState,  {name:modelTypeName,calories:100}] } );
          
-          nameRef.current!.value="NOTHING";//?.setSelectionRange(0, 99999);
-
+          nameRef.current!.value="";//?.setSelectionRange(0, 99999);
+       
         }
     }
 
@@ -64,7 +66,7 @@ const handleTextChange=(event: React.ChangeEvent<HTMLInputElement>):void => {
                             required
                             error={isError} // Set this based on your validation logic
                             helperText={isError ? 'Model Type Name is required' : ''}
-                            ref ={nameRef}
+                            inputRef ={nameRef}
                          />
 
                         

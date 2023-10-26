@@ -1,6 +1,8 @@
 export interface ModelTypeDataProps {
     modelTypeData:ModelTypeData[],
     setModelTypeDataListVr: React.Dispatch<React.SetStateAction<ModelTypeData[]>>
+   // setUpdateState: React.Dispatch<React.SetStateAction<string>>   
+   setUpdateState: [string, React.Dispatch<React.SetStateAction<string>>]
 }
 
 export interface ModelTypeData {
@@ -13,5 +15,14 @@ export interface ModelTypeData {
 
 export interface ModelTypeDataNew {
     modelTypeId: string,
-    modelTypename: string
+    modelTypeName: string
+}
+
+export interface ModelTypeEditDataProps {
+    modelTypeData:ModelTypeData,
+    //setModelTypeDataListVr: React.Dispatch<React.SetStateAction<ModelTypeData[]>>
+   // setUpdateState: React.Dispatch<React.SetStateAction<string>>   
+ // setUpdateState: [string, React.Dispatch<React.SetStateAction<string>>]
+index:number 
+  modelTypeDataListandSetStateFunction: [ModelTypeData[], React.Dispatch<React.SetStateAction<ModelTypeData[]>>]
 }

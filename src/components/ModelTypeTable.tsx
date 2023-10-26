@@ -8,12 +8,13 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { ModelTypeDataProps } from '../models/ModelTypeData';
 import Button from '@mui/material/Button';
+import ModelTypeEditInput from './ModelTypeEditInput';
 
+//modelTypeDataListandSetStateFunction: [ModelTypeData[], React.Dispatch<React.SetStateAction<ModelTypeData[]>>]
 
-
-export default function ModelTypeTable({modelTypeData}:ModelTypeDataProps){
-    function handlerUpdateModelType(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, arg1: string): void {
-       alert("I am clicked"+arg1);
+export default function ModelTypeTable({modelTypeData,setModelTypeDataListVr, setUpdateState}:ModelTypeDataProps){
+    function handlerUpdateModelType(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, arg1: string, arg2:string): void {
+       setUpdateState[1](arg2);
     }
     function handlerDeleteModelType(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, arg1: string): void {
         alert("I am clicked"+arg1);
@@ -33,9 +34,12 @@ export default function ModelTypeTable({modelTypeData}:ModelTypeDataProps){
           </TableRow>
         </TableHead>
         <TableBody>
-          {modelTypeData.map((row) => (
+          {modelTypeData.map((row,index) => (
+           //setUpdateState[0]===row.name && setUpdateState[0]!=="UpdateButton" ?
+           setUpdateState[0]===row.name ? <ModelTypeEditInput  modelTypeData={row} index={index} modelTypeDataListandSetStateFunction ={[modelTypeData,setModelTypeDataListVr] } /> :
+           
             <TableRow
-              key={row.name}
+             
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
                 <TableCell component="th" scope="row">
@@ -43,7 +47,7 @@ export default function ModelTypeTable({modelTypeData}:ModelTypeDataProps){
                 </TableCell>
                 <TableCell align="right">
                     {row.calories}
-                    <Button variant="contained" size="small"   onClick={(e)=>handlerUpdateModelType(e,"UpdateButton")} > Update </Button>
+                    <Button variant="contained" size="small"   onClick={(e)=>handlerUpdateModelType(e,"UpdateButton",row.name)} > Edit </Button>
                     <Button variant="contained" size="small"   onClick={(e)=>handlerDeleteModelType(e,"DeleteButton")} > Delete </Button>
                 </TableCell>
               {/* <TableCell align="right">{row.fat}</TableCell>
