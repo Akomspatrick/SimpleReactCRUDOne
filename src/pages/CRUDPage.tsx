@@ -10,21 +10,8 @@ import { fetchRemoteData } from './fetchRemoteData';
 
 
 
-const fetchdatalocaldata =  ()=> {
-const rowsOfData :ModelTypeData[] = [];
-rowsOfData.push({name:'Frozen yoghurt', calories:159});
-rowsOfData.push({name:'Ice cream sandwich', calories:237});
-rowsOfData.push({name:'Eclair', calories:262});
-rowsOfData.push({name:'Cupcake', calories:305});
-rowsOfData.push({name:'Gingerbread', calories:356});
-return rowsOfData;
-
-} 
-
-
-
 export default function CRUDPage() {
-   const [modelTypeDataList, setModelTypeDataList] = useState<ModelTypeData[]>( fetchdatalocaldata);
+   const [modelTypeDataList, setModelTypeDataList] = useState<ModelTypeData[]>([]);
    const [updateState      , setUpdateState    ] = useState("UpdateButton");
    const updates = useState("UpdateButton");
    const[loading,setLoading]=useState(false);

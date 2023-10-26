@@ -8,11 +8,10 @@ import { ModelTypeData, ModelTypeDataProps } from '../models/ModelTypeData'
 function ModelTypeAddInput({modelTypeData,setModelTypeDataListVr}:ModelTypeDataProps) {
 
     const initialState=''
-    const [modelTypeName, setmodelTypeName] = React.useState(initialState);
+    const [modelTypeId, setmodelTypeId] = React.useState(initialState);
     const [isError, setIsError] = React.useState(false);
     const nameRef = React.useRef<HTMLInputElement>(null);
    
-   // const [modelTypeDatas, setModelTypeDatas] = React.useState<ModelTypeDataProps[]>([]);
 
     const  handlerAddModelType= (event: React.MouseEvent<HTMLButtonElement, MouseEvent>,btnType :string): void => {
         // throw new Error('Function not implemented.');
@@ -21,7 +20,7 @@ function ModelTypeAddInput({modelTypeData,setModelTypeDataListVr}:ModelTypeDataP
           console.log(btnType);
      }
 const handleTextChange=(event: React.ChangeEvent<HTMLInputElement>):void => {
-    setmodelTypeName(event.target.value);
+    setmodelTypeId(event.target.value);
     setIsError(false);  
   
 }
@@ -29,7 +28,7 @@ const handleTextChange=(event: React.ChangeEvent<HTMLInputElement>):void => {
     function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
   
         event.preventDefault();
-        if (!modelTypeName) {
+        if (!modelTypeId) {
           setIsError(true);
         } else {
           setIsError(false);
@@ -39,7 +38,7 @@ const handleTextChange=(event: React.ChangeEvent<HTMLInputElement>):void => {
          // const value = {name:modelTypeName,calories:100};
           //setModelTypeDataList((prevState) =>             [...prevState, value]  );       //setModelTypeDataList((prevState) => [...prevState, {name:modelTypeName,calories:100} ]  );       //setModelTypeDataList((prevState) => [...prevState, {name:modelTypeName,calories:100} ]  );       //setModelTypeDataList((prevState) => [...prevState, {name:modelTypeName,calories:100} ]  );       //setModelTypeDataList((prevState) => [...prevState, {name:modelTypeName,calories:100} ]  );       //setModelTypeDataList((prevState) => [...prevState, {name:modelTypeName,calories:100} ]  );       //setModelTypeDataList((prevState) => [...prevState, {name:modelTypeName,calories:100} ]  );       //setModelTypeDataList((prevState) => [...prevState, {name:modelTypeName,calories:100} ]  );       //setModelTypeDataList((prevState) => [...prevState, {name:modelTypeName,calories:100} ]  );       //setModelTypeDataList((prevState) => [...prevState, {name:modelTypeName,calories:100} ]  );
           // corect setModelTypeDataList((prevState) =>             [...prevState, {name:modelTypeName,calories:100} ]  );       //setModelTypeDataList((prevState) => [...prevState, {name:modelTypeName,calories:100} ]  );       //setModelTypeDataList((prevState) => [...prevState, {name:modelTypeName,calories:100} ]  );       //setModelTypeDataList((prevState) => [...prevState, {name:modelTypeName,calories:100} ]  );       //setModelTypeDataList((prevState) => [...prevState, {name:modelTypeName,calories:100} ]  );       //setModelTypeDataList((prevState) => [...prevState, {name:modelTypeName,calories:100} ]  );       //setModelTypeDataList((prevState) => [...prevState, {name:modelTypeName,calories:100} ]  );       //setModelTypeDataList((prevState) => [...prevState, {name:modelTypeName,calories:100} ]  );       //setModelTypeDataList((prevState) => [...prevState, {name:modelTypeName,calories:100} ]  );       //setModelTypeDataList((prevState) => [...prevState, {name:modelTypeName,calories:100} ]  );
-          setModelTypeDataListVr(prevState =>  {  return   [...prevState,  {name:modelTypeName,calories:100}] } );
+          setModelTypeDataListVr(prevState =>  {  return   [...prevState,  {modelTypeId:modelTypeId,modelTypeName:modelTypeId}] } );
          
           nameRef.current!.value="";//?.setSelectionRange(0, 99999);
        

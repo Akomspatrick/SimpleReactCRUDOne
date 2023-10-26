@@ -6,18 +6,26 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { ModelTypeDataProps } from '../models/ModelTypeData';
+import { ModelTypeData, ModelTypeDataProps } from '../models/ModelTypeData';
 import Button from '@mui/material/Button';
 import ModelTypeEditInput from './ModelTypeEditInput';
+import { DeleteFromApi, fetchRemoteData } from '../pages/fetchRemoteData';
 
-//modelTypeDataListandSetStateFunction: [ModelTypeData[], React.Dispatch<React.SetStateAction<ModelTypeData[]>>]
 
 export default function ModelTypeTable({modelTypeData,setModelTypeDataListVr, setUpdateState}:ModelTypeDataProps){
-    function handlerUpdateModelType(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, arg1: string, arg2:string): void {
-       setUpdateState[1](arg2);
+    function handlerUpdateModelType(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, arg1: string, arg2:ModelTypeData): void {
+       setUpdateState[1](arg2.modelTypeId);
     }
-    function handlerDeleteModelType(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, arg1: string): void {
-        alert("I am clicked"+arg1);
+    function handlerDeleteModelType(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, arg1: string, arg2:ModelTypeData): void {
+      
+   
+        DeleteFromApi( {modelTypeId:arg2.modelTypeId})
+
+        const list =fetchRemoteData().then( 
+                            (newRowsOfData:ModelTypeData[]) =>{ return setModelTypeDataListVr(newRowsOfData)} );
+       
+           
+
     }
 
   return (
@@ -26,29 +34,23 @@ export default function ModelTypeTable({modelTypeData,setModelTypeDataListVr, se
       <Table  aria-label="simple table">
         <TableHead>
           <TableRow>
-            {/* <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell> */}
-            {/* <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell> */}
+
           </TableRow>
         </TableHead>
         <TableBody>
           {modelTypeData.map((row,index) => (
            //setUpdateState[0]===row.name && setUpdateState[0]!=="UpdateButton" ?
-           setUpdateState[0]===row.name ? <ModelTypeEditInput  modelTypeData={row} index={index} modelTypeDataListandSetStateFunction ={[modelTypeData,setModelTypeDataListVr] } /> :
+           setUpdateState[0]===row.modelTypeName ? <ModelTypeEditInput  modelTypeData={row} index={index} modelTypeDataListandSetStateFunction ={[modelTypeData,setModelTypeDataListVr] } /> :
            
             <TableRow
              
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
                 <TableCell component="th" scope="row">
-                    {row.name}
-                </TableCell>
-                <TableCell align="right">
-                    {row.calories}
-                    <Button variant="contained" size="small"   onClick={(e)=>handlerUpdateModelType(e,"UpdateButton",row.name)} > Edit </Button>
-                    <Button variant="contained" size="small"   onClick={(e)=>handlerDeleteModelType(e,"DeleteButton")} > Delete </Button>
+                    {row.modelTypeName}
+
+                    <Button variant="contained" size="small"   onClick={(e)=>handlerUpdateModelType(e,"UpdateButton",row)} > Edit </Button>
+                    <Button variant="contained" size="small"   onClick={(e)=>handlerDeleteModelType(e,"DeleteButton",row)} > Delete </Button>
                 </TableCell>
               {/* <TableCell align="right">{row.fat}</TableCell>
               <TableCell align="right">{row.carbs}</TableCell>

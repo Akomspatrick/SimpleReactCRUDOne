@@ -2,63 +2,33 @@ import Button from '@mui/material/Button'
 import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
 import TextField from '@mui/material/TextField'
-import React, { FormEvent } from 'react'
-import { ModelTypeData, ModelTypeDataNew, ModelTypeEditDataProps } from '../models/ModelTypeData'
+import React from 'react'
+import {  ModelTypeData, ModelTypeEditDataProps } from '../models/ModelTypeData'
+import { PostToApi } from '../pages/fetchRemoteData'
 
 function ModelTypeEditInput({modelTypeData,index,modelTypeDataListandSetStateFunction}: ModelTypeEditDataProps) {
   
-    const [modelTypeName, setmodelTypeName] = React.useState(modelTypeData.name);
+    const [modelTypeName, setmodelTypeName] = React.useState(modelTypeData.modelTypeName);
     function handlerUpdateModelType(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, arg1: string): void {
        
         
         const list =modelTypeDataListandSetStateFunction[0]
-        const newlist=list.map((item) => (item.name === modelTypeData.name ? { ...item, name: modelTypeName } : item))  
+        const newlist=list.map((item) => (item.modelTypeId === modelTypeData.modelTypeId ? { ...item, name: modelTypeName} : item))  
 
         modelTypeDataListandSetStateFunction[1](newlist);
-        const newValue:ModelTypeDataNew = {modelTypeId:modelTypeData.name, modelTypeName:modelTypeName};
+        const newValue:ModelTypeData = {modelTypeId:modelTypeData.modelTypeId, modelTypeName:modelTypeName};
         PostToApi(newValue);
     }
 
 
-//     PUT {{baseUrl}}/ModelType
-// Content-Type: application/json
 
-// {
-//   "modeltypeId": "THIRDMODELTYPEID",
-//   "modeltypeName": "MODIFIED ML2"
-// }
-    const PostToApi=( newValue:ModelTypeDataNew )=>{
-        const baseUrl= "http://localhost:5007/api/ModelType";
-        fetch(baseUrl, {
-            method: 'PUT',
-            headers: {
-             'Content-Type': 'application/json'
-             },
-            body: JSON.stringify(newValue)   })
-            .then(response => {
-                response.json()
-                
-            })
-            .then(data => console.log(data))
-            .catch(error => console.error(error));
-    }
     
     function handleTextChange(event: React.ChangeEvent<HTMLInputElement >): void {
         const name = event.target.name;
         const value = event.target.value
         setmodelTypeName(value);
-        // const list =modelTypeDataListandSetStateFunction[0]
-        // const newlist=list.map((item) => (item.name === modelTypeData.name ? { ...item, name: value } : item))  
-        // modelTypeDataListandSetStateFunction[1](newlist);
+  
     }
-
-    // function submitHandler(event: FormEvent<HTMLFormElement>): void {
-    //      event.preventDefault();
-    //     // const value = event.target.elements.name.value
-    //      const list =modelTypeDataListandSetStateFunction[0]
-    //      const newlist=list.map((item) => (item.name === modelTypeData.name ? { ...item, name: value } : item))  
-    //      modelTypeDataListandSetStateFunction[1](newlist);
-    // }
 
   return (
    
@@ -81,7 +51,7 @@ function ModelTypeEditInput({modelTypeData,index,modelTypeDataListandSetStateFun
                          />
                 </TableCell>
                 <TableCell align="right">
-                    {modelTypeData.calories}
+                   
                     {/* <Button variant="contained" size="small"   > Update </Button> */}
                     <Button variant="contained" size="small"  onClick={(e)=>handlerUpdateModelType(e,"UpdateButton")} > Update </Button> 
                 </TableCell>
