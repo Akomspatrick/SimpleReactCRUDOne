@@ -1,41 +1,45 @@
 
-import ModelTypeTable from '../components/ModelTypeTable';
+import ModelTypeTable from '../components/ModelType/ModelTypeTable';
 import { Stack } from '@mui/material';
-import { ModelTypeData, ModelTypeDataProps } from '../models/ModelTypeData';
-import ModelTypeAddInput from '../components/ModelTypeAddInput';
+
+import ModelTypeAddInput from '../components/ModelType/ModelTypeAdd';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { fetchRemoteData } from './fetchRemoteData';
+import { ModelTypeResponseDTO } from '../models/DocumentVersionDTOs';
 
 
 
 
 export default function CRUDPage() {
-   const [modelTypeDataList, setModelTypeDataList] = useState<ModelTypeData[]>([]);
+   const [modelTypeDataList, setModelTypeDataList] = useState<ModelTypeResponseDTO[]>([]);
    const [updateState      , setUpdateState    ] = useState("UpdateButton");
+   const [listChanged, SetListChanged] = useState(false);
    const updates = useState("UpdateButton");
    const[loading,setLoading]=useState(false);
 
   
 useEffect(() => {
-         setLoading(true);
+         setLoading(true);  
          console.log("loadData...... true");
-         fetchRemoteData().then((newRowsOfData:ModelTypeData[]) =>{
-         setModelTypeDataList(prev=> [...prev,...newRowsOfData]  )
+         fetchRemoteData().then((newRowsOfData:ModelTypeResponseDTO[]) =>{
+         setModelTypeDataList(prev=> [...newRowsOfData]  )
          setLoading(false);
          console.log("Finished loadData...... false");
-
+         SetListChanged(false)
         } );
       
-    }, []);
-   const status = () =>{  return   (loading) ?  <h1 >Loading.......</h1> :   <h1 >NopesLoading.......</h1>       };
+    }, [listChanged]);
+   const status = () =>{  return   (loading) ?  <h1 >Loading.......</h1> :   <h1 ></h1>       };
   return (
     <Stack   sx={{width: 400}} >
              
         
            {status()}
-            <ModelTypeAddInput modelTypeData={modelTypeDataList}  setModelTypeDataListVr={setModelTypeDataList}  setUpdateState={[updateState      , setUpdateState    ] } />    
-            <ModelTypeTable modelTypeData={modelTypeDataList} setModelTypeDataListVr={setModelTypeDataList} setUpdateState={[updateState      , setUpdateState    ] }/>
+            <ModelTypeAddInput setListChanged={SetListChanged} />    
+            <ModelTypeTable modelTypeData={modelTypeDataList} setModelTypeDataListVr={setModelTypeDataList} 
+               setUpdateState={[updateState      , setUpdateState    ] }  
+               setListChanged={SetListChanged}/>
         
    </Stack>
   );

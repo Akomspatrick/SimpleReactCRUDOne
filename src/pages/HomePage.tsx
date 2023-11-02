@@ -14,7 +14,7 @@ export default function HomePage() {
                    alignItems:'center' ,
                    justifyContent:'center', 
                    display:'flex' }} >
-                    <CRUDPage />
+                  
           
         </Box>
       </Container>

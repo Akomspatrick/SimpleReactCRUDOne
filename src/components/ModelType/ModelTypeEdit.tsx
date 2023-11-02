@@ -3,20 +3,22 @@ import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
 import TextField from '@mui/material/TextField'
 import React from 'react'
-import {  ModelTypeData, ModelTypeEditDataProps } from '../models/ModelTypeData'
-import { PostToApi } from '../pages/fetchRemoteData'
+
+import { PostToApi } from '../../pages/fetchRemoteData'
+import { ModelTypeEditDataProps } from '../../models/DocumentVersionProps'
+import { ModelTypeResponseDTO } from '../../models/DocumentVersionDTOs'
 
 function ModelTypeEditInput({modelTypeData,index,modelTypeDataListandSetStateFunction}: ModelTypeEditDataProps) {
   
-    const [modelTypeName, setmodelTypeName] = React.useState(modelTypeData.modelTypeName);
+    const [modelTypeName, setmodelTypeName] = React.useState(modelTypeData.modelTypesName);
     function handlerUpdateModelType(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, arg1: string): void {
        
         
         const list =modelTypeDataListandSetStateFunction[0]
-        const newlist=list.map((item) => (item.modelTypeId === modelTypeData.modelTypeId ? { ...item, name: modelTypeName} : item))  
+        const newlist=list.map((item) => (item.modelTypesId === modelTypeData.modelTypesId ? { ...item, name: modelTypeName} : item))  
 
         modelTypeDataListandSetStateFunction[1](newlist);
-        const newValue:ModelTypeData = {modelTypeId:modelTypeData.modelTypeId, modelTypeName:modelTypeName};
+        const newValue:ModelTypeResponseDTO = {modelTypesId:modelTypeData.modelTypesId, modelTypesName:modelTypeName};
         PostToApi(newValue);
     }
 

@@ -1,16 +1,16 @@
-import { ModelTypeData, ModelTypeDeleteDTO } from '../models/ModelTypeData';
+import { ModelTypeResponseDTO, ModelTypeDeleteDTO, ModelTypeCreateDTO } from '../models/DocumentVersionDTOs';
 
 export const fetchRemoteData = async () => {
-   const newRowsOfData: ModelTypeData[] = [];
+   const newRowsOfData: ModelTypeResponseDTO[] = [];
    const baseUrl = "http://localhost:5007/api/ModelType/GetAllAsync";
 
    return  fetch(baseUrl)
       .then(res => res.json())
-      .then((data: ModelTypeData[]) => {
+      .then((data: ModelTypeResponseDTO[]) => {
          console.log(data);
 
          for (let index = 0; index < data.length; index++) {
-            newRowsOfData.push({ modelTypeId: data[index].modelTypeId, modelTypeName: data[index].modelTypeName });
+            newRowsOfData.push({ modelTypesId: data[index].modelTypesId, modelTypesName: data[index].modelTypesName });
 
          }
          return newRowsOfData;
@@ -18,14 +18,14 @@ export const fetchRemoteData = async () => {
       });
 };
 
-export const PostToApi=( newValue:ModelTypeData )=>{
+export const PostToApi=( newValue:ModelTypeCreateDTO )=>{
    const baseUrl= "http://localhost:5007/api/ModelType";
-   fetch(baseUrl, {
-       method: 'PUT',
-       headers: {
-        'Content-Type': 'application/json'
-        },
-       body: JSON.stringify(newValue)   })
+  return  fetch(baseUrl, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newValue)   })
        .then(response => {
            response.json()
 
@@ -38,7 +38,7 @@ export const PostToApi=( newValue:ModelTypeData )=>{
 export const DeleteFromApi=( newValue:ModelTypeDeleteDTO )=>{
    const baseUrl= "http://localhost:5007/api/ModelType";
 
-   fetch(baseUrl, {
+  return  fetch(baseUrl, {
        method: 'DELETE',
        headers: {
         'Content-Type': 'application/json'
